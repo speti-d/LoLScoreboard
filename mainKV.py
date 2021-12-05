@@ -28,7 +28,7 @@ class ManageWindow(ScreenManager):
     pass
 
 class MyGridLayout(GridLayout):
-    def __init__(self):
+    def __init__(self, **kwargs):
         self.cwd = os.getcwd()
         super().__init__()
         f = open('champion.json')
