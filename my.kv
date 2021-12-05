@@ -1,3 +1,29 @@
+ManageWindow:
+
+<ManageWindow>:
+    StartWindow:
+    SummonerWindow:
+    MatchWindow:
+
+<StartWindow>:
+    name: "start_window"
+    Label:
+        text: "firstwindow"
+    Button:
+        on_release: app.root.current = "summoner_window"
+
+<SummonerWindow>:
+    name: "summoner_window"
+    MyGridLayout:
+
+<MatchWindow>:
+    name: "match_window"
+    Label:
+        text: "match_window"
+
+
+
+
 <MyGridLayout>:
     cols: 2
     GridLayout:
@@ -55,6 +81,7 @@
                 text: 'Match 1 KDA/CS'
                 background_color: 0,0,0,0
             Button:
+                on_release: app.root.current = "match_window"
                 text: '>>'
                 size_hint: 0.2, 1
                 on_press:

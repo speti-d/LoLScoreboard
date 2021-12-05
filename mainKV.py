@@ -7,12 +7,25 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.widget import Widget
+from kivy.uix.screenmanager import ScreenManager, Screen
 
 import ChampionMasteryDTO
 import LastMatch
 import MatchList
 import SummonerDTO
 
+
+class StartWindow(Screen):
+    pass
+
+class SummonerWindow(Screen):
+    pass
+
+class MatchWindow(Screen):
+    pass
+
+class ManageWindow(ScreenManager):
+    pass
 
 class MyGridLayout(GridLayout):
     def __init__(self):
@@ -83,8 +96,7 @@ class MyGridLayout(GridLayout):
         self.ids.match4kda.text = str(self.kills[4])+"/"+str(self.deaths[4])+"/"+str(self.assists[4]) + " - "+str(self.cs[4]) + " cs " + str(self.win[4])
 
 class MyApp(App):
-    def build(self):
-        return MyGridLayout()
+    pass
 
 
 
