@@ -4,6 +4,7 @@ import os
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
+from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.widget import Widget
@@ -25,18 +26,22 @@ class MatchWindow(Screen):
     pass
 
 class ManageWindow(ScreenManager):
+    def test(self, sumname, apikey):
+        MyGridLayout.get_summonerpage(self.ids.mygridlayout, sumname, apikey)
+
+class StartLayout(FloatLayout):
     pass
 
 class MyGridLayout(GridLayout):
-    def update(self):
+    def get_summonerpage(self, sumname, apikey):
         self.cwd = os.getcwd()
         
         f = open('champion.json')
         championData = json.load(f)
         f.close()
         championNames = list(championData['data'])
-        self.summonerName = 'IntOrString'
-        self.APIKey = 'RGAPI-894bac97-4a8c-4ef9-91e6-2a59e0539551'
+        self.summonerName = sumname
+        self.APIKey = apikey
         response = SummonerDTO.getSummonerData(self.summonerName, self.APIKey)
         self.summonerId = response['id']
         self.profileIconId = response['profileIconId']
@@ -73,8 +78,8 @@ class MyGridLayout(GridLayout):
                         self.win[i] = '           Win'
                     else:
                         self.win[i] = '           Lose'
-        
-        
+
+    def update(self):
         self.ids.summ_icon.source = source = str(self.cwd) + '\profileicon\\'+str(self.profileIconId) + '.png'
         self.ids.summ_name.text = str(self.summonerName)
         self.ids.summ_level.text = 'Level ' + str(self.level)

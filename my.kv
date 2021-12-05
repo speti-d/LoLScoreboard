@@ -7,14 +7,13 @@ ManageWindow:
 
 <StartWindow>:
     name: "start_window"
-    Label:
-        text: "firstwindow"
-    Button:
-        on_release: app.root.current = "summoner_window"
+    StartLayout:
 
 <SummonerWindow>:
     name: "summoner_window"
+    id: sum_window
     MyGridLayout:
+        id: mygridlayout
 
 <MatchWindow>:
     name: "match_window"
@@ -22,6 +21,29 @@ ManageWindow:
         text: "match_window"
 
 
+
+<StartLayout>:
+    BoxLayout:
+        pos: root.width / 2, root.height / 2
+        orientation: "vertical"
+        size_hint: None, None
+        Label:
+            text: "Api key:"
+        TextInput:
+            id: api_key
+            multiline: False
+        Label:
+            text: "Username:"
+        TextInput:
+            id: usr_name
+            multiline: False
+        Button:
+            size_hint: None, None
+            size: 70, 30
+            text: "Search..."
+            on_press:
+                app.root.get_screen("summoner_window").ids.mygridlayout.get_summonerpage(usr_name.text, api_key.text)
+                app.root.current = "summoner_window"
 
 
 <MyGridLayout>:
