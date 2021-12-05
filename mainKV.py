@@ -28,9 +28,9 @@ class ManageWindow(ScreenManager):
     pass
 
 class MyGridLayout(GridLayout):
-    def __init__(self, **kwargs):
+    def update(self):
         self.cwd = os.getcwd()
-        super().__init__()
+        
         f = open('champion.json')
         championData = json.load(f)
         f.close()
@@ -73,8 +73,8 @@ class MyGridLayout(GridLayout):
                         self.win[i] = '           Win'
                     else:
                         self.win[i] = '           Lose'
-
-    def update(self):
+        
+        
         self.ids.summ_icon.source = source = str(self.cwd) + '\profileicon\\'+str(self.profileIconId) + '.png'
         self.ids.summ_name.text = str(self.summonerName)
         self.ids.summ_level.text = 'Level ' + str(self.level)
