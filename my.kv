@@ -21,22 +21,26 @@ ManageWindow:
         text: "match_window"
 
 
+<MyTextInput@TextInput>:
+    multiline: False
+    size_hint_y: None
+    size: 666, 32
+
 
 <StartLayout>:
     BoxLayout:
-        pos: root.width / 2, root.height / 2
+        pos: (root.width / 2) - self.width / 2, root.height / 2
         orientation: "vertical"
         size_hint: None, None
+        size: 500, 200
         Label:
             text: "Api key:"
-        TextInput:
+        MyTextInput:
             id: api_key
-            multiline: False
         Label:
             text: "Username:"
-        TextInput:
+        MyTextInput:
             id: usr_name
-            multiline: False
         Button:
             size_hint: None, None
             size: 70, 30
@@ -44,6 +48,7 @@ ManageWindow:
             on_press:
                 app.root.get_screen("summoner_window").ids.mygridlayout.get_summonerpage(usr_name.text, api_key.text)
                 app.root.current = "summoner_window"
+                root.parent.manager.transition.direction = "left"
 
 
 <MyGridLayout>:
@@ -90,8 +95,10 @@ ManageWindow:
     BoxLayout:
         orientation: 'vertical'
         Button:
-            text: 'Refresh'
-            on_press: root.update()
+            text: 'back'
+            on_press: 
+                app.root.current = "start_window"
+                root.parent.manager.transition.direction = "right"
         BoxLayout:
             orientation: 'horizontal'
             Image:
