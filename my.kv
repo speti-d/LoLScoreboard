@@ -1,0 +1,105 @@
+<MyGridLayout>:
+    cols: 2
+    GridLayout:
+        rows: 5
+        Label:
+            id: summ_icon
+            text: 'summoner icon'
+            size_hint: 1, 3
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+                id: summ_name
+                text: 'summoner name'
+            Label:
+                id: summ_level
+                text: 'summoner level'
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+                id: champ_mastery1P
+                text: 'champ mastery pic 1'
+            Label:
+                id: champ_mastery1
+                text: 'champ mastery 1'
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+                id: champ_mastery2P
+                text: 'champ mastery pic 2'
+            Label:
+                id: champ_mastery2
+                text: 'champ mastery 2'
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+                id: champ_mastery3P
+                text: 'champ mastery pic 3'
+            Label:
+                id: champ_mastery3
+                text: 'champ mastery 3'
+    BoxLayout:
+        orientation: 'vertical'
+        Button:
+            text: 'Refresh'
+            on_press: root.update()
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+                id: match1p
+                text: 'pic'
+                size_hint: 0.2, 1
+            Label:
+                id: match1kda
+                text: 'Match 1 KDA/CS'
+            Button:
+                text: '>>'
+                size_hint: 0.2, 1
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+                id: match2p
+                text: 'pic'
+                size_hint: 0.2, 1
+            Label:
+                id: match2kda
+                text: 'Match 2 KDA/CS'
+            Button:
+                text: '>>'
+                size_hint: 0.2, 1
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+                id: match3p
+                text: 'pic'
+                size_hint: 0.2, 1
+            Label:
+                id: match3kda
+                text: 'Match 3 KDA/CS'
+            Button:
+                text: '>>'
+                size_hint: 0.2, 1
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+                id: match4p
+                text: 'pic'
+                size_hint: 0.2, 1
+            Label:
+                id: match4kda
+                text: 'Match 4 KDA/CS'
+            Button:
+                text: '>>'
+                size_hint: 0.2, 1
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+                id: match5p
+                text: 'pic'
+                size_hint: 0.2, 1
+            Label:
+                id: match5kda
+                text: 'Match 5 KDA/CS'
+            Button:
+                text: '>>'
+                size_hint: 0.2, 1
