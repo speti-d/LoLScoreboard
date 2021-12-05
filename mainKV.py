@@ -38,7 +38,7 @@ class MyGridLayout(GridLayout):
         print(platform.system())
         if platform.system() == "Linux":
             slash = '/'
-        elif platform.system == "Windows":
+        elif platform.system() == "Windows":
             slash = '\\'
 
         self.cwd = os.getcwd()
@@ -105,6 +105,8 @@ class MyGridLayout(GridLayout):
         self.ids.match3kda.text = str(self.kills[3])+"/"+str(self.deaths[3])+"/"+str(self.assists[3]) + " - "+str(self.cs[3]) + " cs " + str(self.win[3])
         self.ids.match4p.source = str(self.cwd) + slash + 'champion' + slash  + str(self.championPortrait[4]) + '.png'
         self.ids.match4kda.text = str(self.kills[4])+"/"+str(self.deaths[4])+"/"+str(self.assists[4]) + " - "+str(self.cs[4]) + " cs " + str(self.win[4])
+
+
 class MyApp(App):
     pass
 
