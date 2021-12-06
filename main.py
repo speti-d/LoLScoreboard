@@ -27,8 +27,7 @@ class MatchWindow(Screen):
     pass
 
 class ManageWindow(ScreenManager):
-    def test(self, sumname, apikey):
-        MyGridLayout.get_summonerpage(self.ids.mygridlayout, sumname, apikey)
+    pass
 
 class StartLayout(FloatLayout):
     pass
@@ -111,10 +110,10 @@ class MyGridLayout(GridLayout):
         self.ids.match4kda.text = str(self.kills[4])+"/"+str(self.deaths[4])+"/"+str(self.assists[4]) + " - "+str(self.cs[4]) + " cs " + str(self.win[4])
 
 
-class MyApp(App):
+class LoLScoreboardApp(App):
     pass
 
 
 
 if __name__ == "__main__":
-    MyApp().run()
+    LoLScoreboardApp().run()
