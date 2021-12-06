@@ -63,6 +63,7 @@ class MyGridLayout(GridLayout):
             for j in range(len(championNames)):
                 if str(championData['data'][championNames[j]]['key']) == str(self.championId[i]):
                     self.championId[i] = championNames[j]
+                    
 
         self.championPortrait = [0, 0, 0, 0, 0]
         self.kills = [0, 0, 0, 0, 0]
@@ -74,8 +75,11 @@ class MyGridLayout(GridLayout):
         for i in range(5):
             response = LastMatch.getLastMatch(self.matchIds[i], self.APIKey)
             for j in range(len(response['info']['participants'])):
-                if response['info']['participants'][j]['summonerName'] == self.summonerName:
-                    self.championPortrait[i] = response['info']['participants'][j]['championName']
+                if response['info']['participants'][j]['summonerName'].lower() == self.summonerName.lower():
+                    if response['info']['participants'][j]['championName'] == "FiddleSticks":
+                        self.championPortrait[i] = "Fiddlesticks"
+                    else:
+                        self.championPortrait[i] = response['info']['participants'][j]['championName']
                     self.kills[i] = response['info']['participants'][j]['kills']
                     self.assists[i] = response['info']['participants'][j]['assists']
                     self.deaths[i] = response['info']['participants'][j]['deaths']
