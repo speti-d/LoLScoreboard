@@ -30,7 +30,16 @@ class ManageWindow(ScreenManager):
     pass
 
 class StartLayout(FloatLayout):
-    pass
+    def try_summoner(self, sumname, apikey):
+        response = SummonerDTO.getSummonerData(sumname, apikey)
+        self.is_summoner = True
+        try:
+            tmp = response['id']
+        except KeyError:
+            self.is_summoner = False
+            print(response)
+            self.ids.loading_label.text = ("Error: " + str(response['status']['status_code'])
+                + ' ' + response['status']['message'])
 
 class MyGridLayout(GridLayout):
     def get_summonerpage(self, sumname, apikey):
