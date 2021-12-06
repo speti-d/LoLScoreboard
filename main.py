@@ -7,6 +7,7 @@ from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.scrollview import ScrollView
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.widget import Widget
@@ -78,14 +79,16 @@ class MyGridLayout(GridLayout):
                     self.championId[i] = championNames[j]
                     
 
-        self.championPortrait = [0, 0, 0, 0, 0]
-        self.kills = [0, 0, 0, 0, 0]
-        self.assists = [0, 0, 0, 0, 0]
-        self.deaths = [0, 0, 0, 0, 0]
-        self.cs = [0, 0, 0, 0, 0]
-        self.win = [0, 0, 0, 0, 0]
-        self.matchIds = MatchList.getMatchList(self.puuid, self.APIKey)
-        for i in range(5):
+        magic_num_N = 10
+
+        self.championPortrait = [0 for i in range(magic_num_N)]
+        self.kills = [0 for i in range(magic_num_N)]
+        self.assists = [0 for i in range(magic_num_N)]
+        self.deaths = [0 for i in range(magic_num_N)]
+        self.cs = [0 for i in range(magic_num_N)]
+        self.win = [0 for i in range(magic_num_N)]
+        self.matchIds = MatchList.getMatchList(self.puuid, self.APIKey, magic_num_N)
+        for i in range(magic_num_N):
             response = LastMatch.getLastMatch(self.matchIds[i], self.APIKey)
             for j in range(len(response['info']['participants'])):
                 if response['info']['participants'][j]['summonerName'].lower() == self.summonerName.lower():
@@ -114,11 +117,16 @@ class MyGridLayout(GridLayout):
         self.ids.champ_mastery3P.source = str(self.cwd) + slash + 'champion' + slash +str(self.championId[2]) + '.png'
         self.ids.champ_mastery3.text = str(self.championPoints[2])
 
+        for child in self.ids.match_history.children:
+            if child.text != "back":
+                print(child)
+                self.ids.match_history.remove_widget(child)
+
         for i in range(len(self.championPortrait)):
             tmp_source = str(self.cwd) + slash + 'champion' + slash  + str(self.championPortrait[i]) + '.png'
-            tmp_kda = str(self.kills[i]) +"/"+ str(self.deaths[i])+"/"+str(self.assists[i]) + " - "+str(self.cs[i]) + " cs " + str(self.win[i])
-            
-            tmp = Match(match_id = self.matchIds[0], 
+            tmp_kda = "{0:30}{1:>4}".format((str(self.kills[i]) +"/"+ str(self.deaths[i])+"/"+str(self.assists[i]) + " - "+str(self.cs[i]) + " cs "), str(self.win[i]))
+            print(tmp_kda)
+            tmp = Match(match_id = self.matchIds[i], 
                 match_p_source = tmp_source, 
                 match_kda_text = tmp_kda)
             
@@ -131,6 +139,7 @@ class Match(BoxLayout):
     match_id = StringProperty('default')
     match_p_source = StringProperty('default')
     match_kda_text = StringProperty('default')
+
 
 
 class LoLScoreboardApp(App):
