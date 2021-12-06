@@ -6,10 +6,12 @@ from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.widget import Widget
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.properties import StringProperty, ObjectProperty
 
 import ChampionMasteryDTO
 import LastMatch
@@ -26,8 +28,13 @@ class SummonerWindow(Screen):
 class MatchWindow(Screen):
     pass
 
+
 class ManageWindow(ScreenManager):
-    pass
+    def create_match(self, match_id):
+        name = match_id
+        sc = MatchWindow(name=name)
+        self.add_widget(sc)
+
 
 class StartLayout(FloatLayout):
     def try_summoner(self, sumname, apikey):
@@ -46,7 +53,7 @@ class MyGridLayout(GridLayout):
             slash = '/'
         elif platform.system() == "Windows":
             slash = '\\'
-
+        
         self.cwd = os.getcwd()
         
         f = open('champion.json')
@@ -86,6 +93,7 @@ class MyGridLayout(GridLayout):
                         self.championPortrait[i] = "Fiddlesticks"
                     else:
                         self.championPortrait[i] = response['info']['participants'][j]['championName']
+                    
                     self.kills[i] = response['info']['participants'][j]['kills']
                     self.assists[i] = response['info']['participants'][j]['assists']
                     self.deaths[i] = response['info']['participants'][j]['deaths']
@@ -105,16 +113,24 @@ class MyGridLayout(GridLayout):
         self.ids.champ_mastery2.text = str(self.championPoints[1])
         self.ids.champ_mastery3P.source = str(self.cwd) + slash + 'champion' + slash +str(self.championId[2]) + '.png'
         self.ids.champ_mastery3.text = str(self.championPoints[2])
-        self.ids.match0p.source = str(self.cwd) + slash + 'champion' + slash  + str(self.championPortrait[0]) + '.png'
-        self.ids.match0kda.text = str(self.kills[0]) +"/"+ str(self.deaths[0])+"/"+str(self.assists[0]) + " - "+str(self.cs[0]) + " cs " + str(self.win[0])
-        self.ids.match1p.source = str(self.cwd) + slash + 'champion' + slash  + str(self.championPortrait[1]) + '.png'
-        self.ids.match1kda.text = str(self.kills[1])+"/"+str(self.deaths[1])+"/"+str(self.assists[1]) + " - "+str(self.cs[1]) + " cs " + str(self.win[1])
-        self.ids.match2p.source = str(self.cwd) + slash + 'champion' + slash  + str(self.championPortrait[2]) + '.png'
-        self.ids.match2kda.text = str(self.kills[2])+"/"+str(self.deaths[2])+"/"+str(self.assists[2]) + " - "+str(self.cs[2]) + " cs " + str(self.win[2])
-        self.ids.match3p.source = str(self.cwd) + slash + 'champion' + slash  + str(self.championPortrait[3]) + '.png'
-        self.ids.match3kda.text = str(self.kills[3])+"/"+str(self.deaths[3])+"/"+str(self.assists[3]) + " - "+str(self.cs[3]) + " cs " + str(self.win[3])
-        self.ids.match4p.source = str(self.cwd) + slash + 'champion' + slash  + str(self.championPortrait[4]) + '.png'
-        self.ids.match4kda.text = str(self.kills[4])+"/"+str(self.deaths[4])+"/"+str(self.assists[4]) + " - "+str(self.cs[4]) + " cs " + str(self.win[4])
+
+        for i in range(len(self.championPortrait)):
+            tmp_source = str(self.cwd) + slash + 'champion' + slash  + str(self.championPortrait[i]) + '.png'
+            tmp_kda = str(self.kills[i]) +"/"+ str(self.deaths[i])+"/"+str(self.assists[i]) + " - "+str(self.cs[i]) + " cs " + str(self.win[i])
+            
+            tmp = Match(match_id = self.matchIds[0], 
+                match_p_source = tmp_source, 
+                match_kda_text = tmp_kda)
+            
+            self.ids.match_history.add_widget(tmp)
+        # self.ids.match0p.source = str(self.cwd) + slash + 'champion' + slash  + str(self.championPortrait[0]) + '.png'
+        # self.ids.match0kda.text = str(self.kills[0]) +"/"+ str(self.deaths[0])+"/"+str(self.assists[0]) + " - "+str(self.cs[0]) + " cs " + str(self.win[0])
+
+
+class Match(BoxLayout):
+    match_id = StringProperty('default')
+    match_p_source = StringProperty('default')
+    match_kda_text = StringProperty('default')
 
 
 class LoLScoreboardApp(App):

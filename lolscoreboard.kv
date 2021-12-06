@@ -3,7 +3,6 @@ ManageWindow:
 <ManageWindow>:
     StartWindow:
     SummonerWindow:
-    MatchWindow:
 
 <StartWindow>:
     name: "start_window"
@@ -17,8 +16,29 @@ ManageWindow:
         id: mygridlayout
 
 <MatchWindow>:
-    name: "match_window"
-    
+    Label:
+        text: root.name
+    Button:
+        text: "back " + root.name
+        on_press: 
+            app.root.current = "summoner_window"
+
+
+<Match>:
+    orientation: 'horizontal'
+    Image:
+        id: match_p
+        source: root.match_p_source
+        size_hint: 0.2, 1
+    Label:
+        id: match_kda
+        text: root.match_kda_text
+        background_color: 0,0,0,0
+    Button:
+        on_press: app.root.create_match(root.match_id)
+        text: '>>'
+        size_hint: 0.2, 1
+        on_release: app.root.current = root.match_id
 
 
 <MyTextInput@TextInput>:
@@ -103,76 +123,10 @@ ManageWindow:
                 id: champ_mastery3
                 text: 'champ mastery 3'
     BoxLayout:
+        id: match_history
         orientation: 'vertical'
         Button:
             text: 'back'
             on_press: 
                 app.root.current = "start_window"
                 root.parent.manager.transition.direction = "right"
-        BoxLayout:
-            orientation: 'horizontal'
-            Image:
-                id: match0p
-                source: 'pic'
-                size_hint: 0.2, 1
-            Label:
-                id: match0kda
-                text: 'Match 1 KDA/CS'
-                background_color: 0,0,0,0
-            Button:
-                on_release: app.root.current = "match_window"
-                text: '>>'
-                size_hint: 0.2, 1
-                on_press:
-        BoxLayout:
-            orientation: 'horizontal'
-            Image:
-                id: match1p
-                source: 'pic'
-                size_hint: 0.2, 1
-            Label:
-                id: match1kda
-                text: 'Match 2 KDA/CS'
-            Button:
-                text: '>>'
-                size_hint: 0.2, 1
-                on_press:
-        BoxLayout:
-            orientation: 'horizontal'
-            Image:
-                id: match2p
-                source: 'pic'
-                size_hint: 0.2, 1
-            Label:
-                id: match2kda
-                text: 'Match 3 KDA/CS'
-            Button:
-                text: '>>'
-                size_hint: 0.2, 1
-                on_press:
-        BoxLayout:
-            orientation: 'horizontal'
-            Image:
-                id: match3p
-                source: 'pic'
-                size_hint: 0.2, 1
-            Label:
-                id: match3kda
-                text: 'Match 4 KDA/CS'
-            Button:
-                text: '>>'
-                size_hint: 0.2, 1
-                on_press:
-        BoxLayout:
-            orientation: 'horizontal'
-            Image:
-                id: match4p
-                source: 'pic'
-                size_hint: 0.2, 1
-            Label:
-                id: match4kda
-                text: 'Match 5 KDA/CS'
-            Button:
-                text: '>>'
-                size_hint: 0.2, 1
-                on_press:
