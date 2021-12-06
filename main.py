@@ -37,13 +37,11 @@ class StartLayout(FloatLayout):
             tmp = response['id']
         except KeyError:
             self.is_summoner = False
-            print(response)
             self.ids.loading_label.text = ("Error: " + str(response['status']['status_code'])
                 + ' ' + response['status']['message'])
 
 class MyGridLayout(GridLayout):
     def get_summonerpage(self, sumname, apikey):
-        print(platform.system())
         if platform.system() == "Linux":
             slash = '/'
         elif platform.system() == "Windows":

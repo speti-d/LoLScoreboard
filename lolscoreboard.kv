@@ -18,8 +18,7 @@ ManageWindow:
 
 <MatchWindow>:
     name: "match_window"
-    Label:
-        text: "match_window"
+    
 
 
 <MyTextInput@TextInput>:
@@ -52,7 +51,6 @@ ManageWindow:
                 loading_label.text = "Loading..."
                 root.try_summoner(usr_name.text, api_key.text)
             on_release:
-                print(root.is_summoner)
                 if root.is_summoner == True:  app.root.get_screen("summoner_window").ids.mygridlayout.get_summonerpage(usr_name.text, api_key.text)
                 if root.is_summoner == True:  app.root.current = "summoner_window"
                 if root.is_summoner == True: root.parent.manager.transition.direction = "left"
