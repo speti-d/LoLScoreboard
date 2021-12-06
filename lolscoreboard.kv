@@ -16,12 +16,9 @@ ManageWindow:
         id: mygridlayout
 
 <MatchWindow>:
-    Label:
-        text: root.name
-    Button:
-        text: "back " + root.name
-        on_press: 
-            app.root.current = "summoner_window"
+    BoxLayout:
+        orientation: 'vertical'
+        id: match_i
 
 
 <Match>:
@@ -39,7 +36,21 @@ ManageWindow:
         on_press: app.root.create_match(root.match_id)
         text: '>>'
         size_hint: 0.2, 1
-        on_release: app.root.current = root.match_id
+        on_release: 
+            app.root.get_screen(root.match_id).get_match(app.root.get_screen(root.match_id).name, app.root.get_screen("summoner_window").ids.mygridlayout.APIKey)
+            app.root.current = root.match_id
+
+<Matcher>:
+    text: ""
+    orientation: 'horizontal'
+    Image:
+        id: match_p
+        source: root.match_p_source
+        size_hint: 0.2, 1
+    Label:
+        id: match_kda
+        text: root.match_kda_text
+        background_color: 0,0,0,0
 
     
 

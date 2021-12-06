@@ -27,7 +27,46 @@ class SummonerWindow(Screen):
     pass
 
 class MatchWindow(Screen):
-    pass
+    def get_match(self, match_id, api_key):
+        magic_num_N = 10
+        self.championPortrait = [0 for i in range(magic_num_N)]
+        self.kills = [0 for i in range(magic_num_N)]
+        self.assists = [0 for i in range(magic_num_N)]
+        self.deaths = [0 for i in range(magic_num_N)]
+        self.cs = [0 for i in range(magic_num_N)]
+        
+        response = LastMatch.getLastMatch(match_id, api_key)
+        for j in range(len(response['info']['participants'])):
+            if response['info']['participants'][j]['championName'] == "FiddleSticks":
+                self.championPortrait[j] = "Fiddlesticks"
+            else:
+                self.championPortrait[j] = response['info']['participants'][j]['championName']
+            self.kills[j] = response['info']['participants'][j]['kills']
+            self.assists[j] = response['info']['participants'][j]['assists']
+            self.deaths[j] = response['info']['participants'][j]['deaths']
+            self.cs[j] = response['info']['participants'][j]['totalMinionsKilled']
+        if platform.system() == "Linux":
+            slash = '/'
+        elif platform.system() == "Windows":
+            slash = '\\'
+        
+        self.cwd = os.getcwd()
+        
+        f = open('champion.json')
+        championData = json.load(f)
+        f.close()
+
+        championNames = list(championData['data'])
+        for i in range(len(self.kills)):
+            
+            tmp_source = str(self.cwd) + slash + 'champion' + slash  + str(self.championPortrait[i]) + '.png'
+            tmp_kda = "{0:30}".format((str(self.kills[i]) +"/"+ str(self.deaths[i])+"/"+str(self.assists[i]) + " - "+str(self.cs[i]) + " cs "))
+            print(tmp_kda)
+            tmp = Matcher(match_id = match_id, 
+                match_p_source = tmp_source, 
+                match_kda_text = tmp_kda)
+            
+            self.ids.match_i.add_widget(tmp)
 
 
 class ManageWindow(ScreenManager):
@@ -136,6 +175,11 @@ class MyGridLayout(GridLayout):
 
 
 class Match(BoxLayout):
+    match_id = StringProperty('default')
+    match_p_source = StringProperty('default')
+    match_kda_text = StringProperty('default')
+
+class Matcher(BoxLayout):
     match_id = StringProperty('default')
     match_p_source = StringProperty('default')
     match_kda_text = StringProperty('default')
