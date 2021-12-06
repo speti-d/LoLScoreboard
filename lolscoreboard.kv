@@ -1,0 +1,177 @@
+ManageWindow:
+
+<ManageWindow>:
+    StartWindow:
+    SummonerWindow:
+    MatchWindow:
+
+<StartWindow>:
+    name: "start_window"
+    StartLayout:
+        id: mystartlayout
+
+<SummonerWindow>:
+    name: "summoner_window"
+    id: sum_window
+    MyGridLayout:
+        id: mygridlayout
+
+<MatchWindow>:
+    name: "match_window"
+    Label:
+        text: "match_window"
+
+
+<MyTextInput@TextInput>:
+    multiline: False
+    size_hint_y: None
+    size: 666, 32
+
+
+<StartLayout>:
+    BoxLayout:
+        id: start_boxlayout
+        pos: (root.width / 2) - self.width / 2, root.height / 2
+        orientation: "vertical"
+        size_hint: None, None
+        size: 500, 200
+        Label:
+            text: "Api key:"
+        MyTextInput:
+            id: api_key
+        Label:
+            text: "Username:"
+        MyTextInput:
+            id: usr_name
+            
+        Button:
+            size_hint: None, None
+            size: 70, 30
+            text: "Search..."
+            on_press: loading_label.text = "Loading..."
+            on_release:
+                app.root.get_screen("summoner_window").ids.mygridlayout.get_summonerpage(usr_name.text, api_key.text)
+                app.root.current = "summoner_window"
+                root.parent.manager.transition.direction = "left"
+                loading_label.text = ""
+        Label:
+            id: loading_label
+            color: 1, 0, 0, 1
+
+
+<MyGridLayout>:
+    cols: 2
+    padding: 5
+    GridLayout:
+        rows: 5
+        Image:
+            id: summ_icon
+            source: 'summoner icon'
+            size_hint: 1, 3
+            allow_stretch: True
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+                id: summ_name
+                text: 'summoner name'
+            Label:
+                id: summ_level
+                text: 'summoner level'
+        BoxLayout:
+            orientation: 'horizontal'
+            Image:
+                id: champ_mastery1P
+                source: 'champ mastery pic 1'
+            Label:
+                id: champ_mastery1
+                text: 'champ mastery 1'
+        BoxLayout:
+            orientation: 'horizontal'
+            Image:
+                id: champ_mastery2P
+                source: 'champ mastery pic 2'
+            Label:
+                id: champ_mastery2
+                text: 'champ mastery 2'
+        BoxLayout:
+            orientation: 'horizontal'
+            Image:
+                id: champ_mastery3P
+                source: 'champ mastery pic 3'
+            Label:
+                id: champ_mastery3
+                text: 'champ mastery 3'
+    BoxLayout:
+        orientation: 'vertical'
+        Button:
+            text: 'back'
+            on_press: 
+                app.root.current = "start_window"
+                root.parent.manager.transition.direction = "right"
+        BoxLayout:
+            orientation: 'horizontal'
+            Image:
+                id: match0p
+                source: 'pic'
+                size_hint: 0.2, 1
+            Label:
+                id: match0kda
+                text: 'Match 1 KDA/CS'
+                background_color: 0,0,0,0
+            Button:
+                on_release: app.root.current = "match_window"
+                text: '>>'
+                size_hint: 0.2, 1
+                on_press:
+        BoxLayout:
+            orientation: 'horizontal'
+            Image:
+                id: match1p
+                source: 'pic'
+                size_hint: 0.2, 1
+            Label:
+                id: match1kda
+                text: 'Match 2 KDA/CS'
+            Button:
+                text: '>>'
+                size_hint: 0.2, 1
+                on_press:
+        BoxLayout:
+            orientation: 'horizontal'
+            Image:
+                id: match2p
+                source: 'pic'
+                size_hint: 0.2, 1
+            Label:
+                id: match2kda
+                text: 'Match 3 KDA/CS'
+            Button:
+                text: '>>'
+                size_hint: 0.2, 1
+                on_press:
+        BoxLayout:
+            orientation: 'horizontal'
+            Image:
+                id: match3p
+                source: 'pic'
+                size_hint: 0.2, 1
+            Label:
+                id: match3kda
+                text: 'Match 4 KDA/CS'
+            Button:
+                text: '>>'
+                size_hint: 0.2, 1
+                on_press:
+        BoxLayout:
+            orientation: 'horizontal'
+            Image:
+                id: match4p
+                source: 'pic'
+                size_hint: 0.2, 1
+            Label:
+                id: match4kda
+                text: 'Match 5 KDA/CS'
+            Button:
+                text: '>>'
+                size_hint: 0.2, 1
+                on_press:
